@@ -46,8 +46,16 @@ body {
   line-height: 1.6;
 }
 
-html, body, #root {
-  height: 100%;
+/* Chrome, Safari, Edge, Opera - Remove arrows from number input */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox - Remove arrows from number input */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 /* ============================================
@@ -57,7 +65,6 @@ html, body, #root {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
 }
 
 /* ============================================
@@ -128,8 +135,6 @@ html, body, #root {
   align-items: center;
   gap: 0.5rem;
   border-bottom: 3px solid transparent;
-  margin-bottom: -1rem;
-  padding-bottom: 1.75rem;
 }
 
 .tab-button:hover {
@@ -152,37 +157,12 @@ html, body, #root {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
-  animation: fadeIn 0.4s ease-in;
 }
 
 .tab-content {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-}
-
-.tab-content.active {
-  animation: slideIn 0.3s ease-out;
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
 
 /* ============================================
@@ -271,21 +251,6 @@ html, body, #root {
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
-.form-group input:hover,
-.form-group select:hover {
-  border-color: var(--primary-color);
-}
-
-.form-group select {
-  cursor: pointer;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%232563eb' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 0.75rem center;
-  background-size: 16px 12px;
-  padding-right: 2.5rem;
-}
-
 /* ============================================
    BUTTONS
    ============================================ */
@@ -306,10 +271,6 @@ html, body, #root {
 .btn-primary:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: var(--box-shadow-lg);
-}
-
-.btn-primary:active:not(:disabled) {
-  transform: translateY(0);
 }
 
 .btn-primary:disabled {
@@ -338,29 +299,22 @@ html, body, #root {
   margin-bottom: 1rem;
 }
 
-.empty-text {
-  font-size: 1rem;
-  color: var(--text-secondary);
-}
-
 /* ============================================
    RESULT CARD
    ============================================ */
 .result-card {
   padding: 2rem;
   border-radius: 8px;
-  animation: slideIn 0.3s ease-out;
+  border: 1px solid #ddd;
 }
 
 .result-card.risk-high {
   background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
-  border: 2px solid #f87171;
   border-left: 5px solid var(--danger-color);
 }
 
 .result-card.risk-low {
   background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
-  border: 2px solid #86efac;
   border-left: 5px solid var(--success-color);
 }
 
@@ -387,56 +341,24 @@ html, body, #root {
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  color: var(--text-primary);
-}
-
-.result-card.risk-high .result-title {
-  color: #991b1b;
-}
-
-.result-card.risk-low .result-title {
-  color: #065f46;
-}
-
-.result-details {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
 }
 
 .detail-item {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   padding: 1rem;
   background: rgba(255, 255, 255, 0.7);
   border-radius: 6px;
-  flex-wrap: wrap;
-  gap: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .detail-label {
   font-weight: 600;
-  color: var(--text-primary);
 }
 
 .detail-value {
-  font-size: 1.3rem;
   font-weight: 700;
-}
-
-.result-card.risk-high .detail-value {
-  color: var(--danger-color);
-}
-
-.result-card.risk-low .detail-value {
-  color: var(--success-color);
-}
-
-.detail-text {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  font-style: italic;
+  font-size: 1.2rem;
 }
 
 /* ============================================
@@ -450,12 +372,6 @@ html, body, #root {
   margin-top: auto;
 }
 
-.app-footer p {
-  margin: 0.5rem 0;
-  font-size: 0.9rem;
-  opacity: 0.9;
-}
-
 /* ============================================
    RESPONSIVE DESIGN
    ============================================ */
@@ -463,137 +379,10 @@ html, body, #root {
   .content-wrapper {
     grid-template-columns: 1fr;
   }
-
-  .header-title {
-    font-size: 2rem;
-  }
-
-  .app-main {
-    padding: 1.5rem;
-  }
 }
 
 @media (max-width: 768px) {
   .form-row {
     grid-template-columns: 1fr;
-  }
-
-  .tabs-container {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .tab-button {
-    width: 100%;
-    margin-bottom: 0;
-    padding-bottom: 0.75rem;
-    border-bottom: 3px solid transparent;
-  }
-
-  .tab-button.active {
-    border-bottom-color: transparent;
-    border-left: 3px solid var(--primary-color);
-    padding-left: 1rem;
-  }
-
-  .header-title {
-    font-size: 1.75rem;
-  }
-
-  .section-title {
-    font-size: 1.25rem;
-  }
-
-  .form-section,
-  .result-section {
-    padding: 1.5rem;
-  }
-
-  .result-card {
-    padding: 1.5rem;
-  }
-
-  .detail-item {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-
-@media (max-width: 480px) {
-  .app-header {
-    padding: 1.5rem 1rem;
-  }
-
-  .header-title {
-    font-size: 1.5rem;
-  }
-
-  .header-subtitle {
-    font-size: 0.95rem;
-  }
-
-  .app-main {
-    padding: 1rem;
-  }
-
-  .tabs-container {
-    padding: 0.75rem;
-  }
-
-  .tab-button {
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-  }
-
-  .tab-icon {
-    font-size: 1rem;
-  }
-
-  .section-title {
-    font-size: 1rem;
-  }
-
-  .section-subtitle {
-    font-size: 0.85rem;
-  }
-
-  .form-section,
-  .result-section {
-    padding: 1rem;
-  }
-
-  .form-group label {
-    font-size: 0.85rem;
-  }
-
-  .form-group input,
-  .form-group select {
-    padding: 0.6rem;
-    font-size: 0.9rem;
-  }
-
-  .btn-primary {
-    padding: 0.75rem;
-    font-size: 0.9rem;
-  }
-
-  .result-card {
-    padding: 1rem;
-  }
-
-  .result-title {
-    font-size: 1.15rem;
-  }
-
-  .detail-value {
-    font-size: 1.1rem;
-  }
-
-  .app-footer {
-    padding: 1rem;
-  }
-
-  .app-footer p {
-    font-size: 0.8rem;
   }
 }
