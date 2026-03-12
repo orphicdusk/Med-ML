@@ -32,18 +32,23 @@ To mathematically enforce this clinical priority, the Random Forest classifiers 
 
 The optimization objective was strictly tied to maximizing **Recall (Sensitivity)**:
 
-Recall = True Positives / (True Positives + False Negatives)
+$$Recall = \frac{True \ Positives}{True \ Positives + False \ Negatives}$$
 
-Through exhaustive GridSearchCV hyperparameter tuning across 5-fold cross-validation, the cardiovascular model achieved a SOTA **89% Recall** on the unseen test distribution, effectively minimizing critical diagnostic misses.
+Through exhaustive `GridSearchCV` hyperparameter tuning across 5-fold cross-validation, the cardiovascular model achieved a SOTA **89% Recall** on the unseen test distribution, effectively minimizing critical diagnostic misses.
 
 ### 2. Explainable AI (SHAP)
 To build physician trust and prevent automation bias, the system utilizes tree-explainer SHAP values based on cooperative game theory. It breaks down the marginal contribution of each patient vital to the final probability output.
 
+The SHAP value for a specific feature $i$ is calculated as:
+
+$$\phi_i(x) = \sum_{S \subseteq F \setminus \{i\}} \frac{|S|! (|F| - |S| - 1)!}{|F|!} [f_{S \cup \{i\}}(x_{S \cup \{i\}}) - f_S(x_S)]$$
+
+*Where $F$ is the set of all features, $S$ is a subset of features excluding $i$, and $f$ is the predictive model.*
+
 The API returns the top localized risk drivers (e.g., High Cholesterol) and protective factors (e.g., Normal Resting BP) for individual patients.
 
 ### 3. Automated EHR Synthesis (Gemini 2.5 Flash)
-Raw statistical data and SHAP values are securely formatted into a zero-shot prompt and passed to the Google gemini-2.5-flash model. The LLM acts as an automated medical scribe, synthesizing the raw probabilities and risk vectors into a concise, professional 2-sentence clinical note ready for EHR copy-pasting.
-
+Raw statistical data and SHAP values are securely formatted into a zero-shot prompt and passed to the Google `gemini-2.5-flash` model. The LLM acts as an automated medical scribe, synthesizing the raw probabilities and risk vectors into a concise, professional 2-sentence clinical note ready for EHR copy-pasting.
 ---
 
 ## 📊 Datasets
