@@ -43,11 +43,12 @@ The SHAP value for a specific feature $i$ is calculated as:
 
 $$\phi_i(x) = \sum_{S \subseteq F \setminus \{i\}} \frac{|S|! (|F| - |S| - 1)!}{|F|!} [f_{S \cup \{i\}}(x_{S \cup \{i\}}) - f_S(x_S)]$$
 
-*Where $F$ is the set of all features, $S$ is a subset of features excluding $i$, and $f$ is the predictive model.*
+*Where F is the set of all features, S is a subset of features excluding i, and f is the predictive model.*
 
 The API returns the top localized risk drivers (e.g., High Cholesterol) and protective factors (e.g., Normal Resting BP) for individual patients.
 
 ### 3. Automated EHR Synthesis (Gemini 2.5 Flash)
+
 Raw statistical data and SHAP values are securely formatted into a zero-shot prompt and passed to the Google `gemini-2.5-flash` model. The LLM acts as an automated medical scribe, synthesizing the raw probabilities and risk vectors into a concise, professional 2-sentence clinical note ready for EHR copy-pasting.
 ---
 
