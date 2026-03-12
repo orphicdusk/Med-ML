@@ -3,7 +3,7 @@ import axios from 'axios';
 import './App.css';
 
 // REPLACE THIS STRING WITH YOUR CODESPACE PORT 8000 URL
-const API_URL = "https://literate-meme-7v46pjxpwv4w3p69-8000.app.github.dev"; 
+const API_URL = "https://med-ml-backend.onrender.com"; 
 
 function App() {
   const [activeTab, setActiveTab] = useState('heart');
